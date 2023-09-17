@@ -1,5 +1,5 @@
 ---
-stoplight-id: kaigwgi2fxlyg
+stoplight-id: bceid6xy1a9g2
 ---
 
 # Glossary
