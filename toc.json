@@ -1,6 +1,20 @@
 {
   "collapseTableOfContents": false,
   "items": [
+        {
+      "type": "divider",
+      "title": "Introduction"
+    },
+    {
+      "type": "item",
+      "title": "Glossary",
+      "uri": "/docs/Introduction/glossary.md"
+    },
+    {
+      "type": "item",
+      "title": "Overview",
+      "uri": "/docs/Introduction/Overview.md"
+    },
     {
       "type": "divider",
       "title": "Access"
@@ -36,20 +50,6 @@
       "type": "item",
       "title": "Pre-requisits",
       "uri": "/docs/Getting Started/Pre-requisits.md"
-    },
-    {
-      "type": "divider",
-      "title": "Introduction"
-    },
-    {
-      "type": "item",
-      "title": "Glossary",
-      "uri": "/docs/Introduction/glossary.md"
-    },
-    {
-      "type": "item",
-      "title": "Overview",
-      "uri": "/docs/Introduction/Overview.md"
     },
     {
       "type": "divider",
