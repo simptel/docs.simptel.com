@@ -1,0 +1,64 @@
+{
+  "collapseTableOfContents": false,
+  "items": [
+    {
+      "type": "divider",
+      "title": "Access"
+    },
+    {
+      "type": "item",
+      "title": "overview",
+      "uri": "/docs/Access/overview.md"
+    },
+    {
+      "type": "divider",
+      "title": "Authentication"
+    },
+    {
+      "type": "item",
+      "title": "overview",
+      "uri": "/docs/Authentication/overview.md"
+    },
+    {
+      "type": "divider",
+      "title": "Authorization"
+    },
+    {
+      "type": "item",
+      "title": "overview",
+      "uri": "/docs/Authorization/overview.md"
+    },
+    {
+      "type": "divider",
+      "title": "Getting Started"
+    },
+    {
+      "type": "item",
+      "title": "Pre-requisits",
+      "uri": "/docs/Getting Started/Pre-requisits.md"
+    },
+    {
+      "type": "divider",
+      "title": "Introduction"
+    },
+    {
+      "type": "item",
+      "title": "Glossary",
+      "uri": "/docs/Introduction/glossary.md"
+    },
+    {
+      "type": "item",
+      "title": "Overview",
+      "uri": "/docs/Introduction/Overview.md"
+    },
+    {
+      "type": "divider",
+      "title": "APIS"
+    },
+    {
+      "type": "item",
+      "title": "Simptel Authorization Server",
+      "uri": "/docs/Authorization/authorization-service.yaml"
+    }
+  ]
+}
