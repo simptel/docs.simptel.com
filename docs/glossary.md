@@ -1,7 +1,7 @@
 ---
-stoplight-id: c1pn1c71g8ri6
+stoplight-id: kaigwgi2fxlyg
 ---
 
-# Getting-Started
+# glossary
 
 The beginning of an awesome article...
