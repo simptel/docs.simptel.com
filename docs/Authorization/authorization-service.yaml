@@ -1,10 +1,12 @@
 openapi: 3.0.0
+x-stoplight:
+  id: c42a432888b87
 info:
   title: Simptel Authorization Server
   description: REST API of the Simptel Authorization Server
   version: 1.0.0
 servers:
-  - url: http://{{baseurl}}
+  - url: 'http://{{baseurl}}'
 components:
   securitySchemes:
     oauth2Auth:
@@ -33,16 +35,14 @@ tags:
   - name: sessions > session
   - name: sessions > session > refresh
   - name: sessions > session > extend
-  - name: sessions > session > {id}
+  - name: 'sessions > session > {id}'
   - name: sessions > bucket
 paths:
   /accountrecovery/callback:
     post:
       tags:
         - accountrecovery > callback
-      summary: >-
-        Verifies the TOTP (Time-based One-Time Password) during account
-        recovery, allowing the user to obtain an access token.
+      summary: 'Verifies the TOTP (Time-based One-Time Password) during account recovery, allowing the user to obtain an access token.'
       requestBody:
         content:
           application/json:
@@ -107,14 +107,15 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: x99ez9ttaytl3
   /auth/login:
     post:
       tags:
         - auth > login
       summary: Authenticate a user
-      description: >
-        Verifies the provided username or email and password, returning an
-        access token upon successful authentication.
+      description: |
+        Verifies the provided username or email and password, returning an access token upon successful authentication.
       requestBody:
         content:
           application/json:
@@ -177,6 +178,8 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: y8sovcz9awo3p
   /auth/logout:
     get:
       tags:
@@ -251,15 +254,15 @@ paths:
                 type: object
               example:
                 error: <string>
+      x-stoplight:
+        id: 2ta2p3nrw81cm
   /auth/openid:
     get:
       tags:
         - auth > openid
       summary: Initiates the OpenID Connect authentication flow
-      description: >
-        Initiates the OpenID Connect authorization flow for a user to
-        authenticate and obtain an access token. The callback URL
-        /auth/oidc/login will be invoked on success.
+      description: |
+        Initiates the OpenID Connect authorization flow for a user to authenticate and obtain an access token. The callback URL /auth/oidc/login will be invoked on success.
       parameters:
         - name: Accept
           in: header
@@ -277,7 +280,7 @@ paths:
           schema:
             type: string
           description: The redirect URI
-          example: https://localhost:3001/auth/oidc/login/callback
+          example: 'https://localhost:3001/auth/oidc/login/callback'
       responses:
         '200':
           description: OK
@@ -313,64 +316,44 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: 4ypjxcfoq2pen
   /oauth2/authorize:
     get:
       tags:
         - oauth2 > authorize
       summary: Initiates the OAuth 2.1 authorization flow
-      description: >-
-        This endpoint initiates the OAuth 2.1 authorization flow. It supports
-        various grant types including authorization code and refresh token. The
-        authorization interface is the screen users see when granting
-        applications access to their account. When implementing an OAuth server,
-        you are enabling a developer community to build applications that
-        leverage your platform, allowing applications to access and potentially
-        modify private user content, or act on behalf of users. Because of this,
-        you need to ensure you are empowering your users with as much
-        information as possible to protect their accounts and ensure they are
-        informed as to what applications are doing with their accounts. For more
-        details and libraries supporting OAuth 2.1 and OpenID Connect, visit
-        https://oauth.net/code/
+      description: 'This endpoint initiates the OAuth 2.1 authorization flow. It supports various grant types including authorization code and refresh token. The authorization interface is the screen users see when granting applications access to their account. When implementing an OAuth server, you are enabling a developer community to build applications that leverage your platform, allowing applications to access and potentially modify private user content, or act on behalf of users. Because of this, you need to ensure you are empowering your users with as much information as possible to protect their accounts and ensure they are informed as to what applications are doing with their accounts. For more details and libraries supporting OAuth 2.1 and OpenID Connect, visit https://oauth.net/code/'
       parameters:
         - name: response_type
           in: query
           schema:
             type: string
-          description: >-
-            (Required) Specifies the type of response required, must be set to
-            'code' as per OAuth 2.1 protocol.
+          description: '(Required) Specifies the type of response required, must be set to ''code'' as per OAuth 2.1 protocol.'
           example: code
         - name: client_id
           in: query
           schema:
             type: integer
-          description: >-
-            (Required) Unique identifier of the client application seeking
-            access.
+          description: (Required) Unique identifier of the client application seeking access.
           example: '000000000000000000000000'
         - name: redirect_uri
           in: query
           schema:
             type: string
-          description: >-
-            (Required) The URI to redirect user after authorization is granted
-            or denied.
-          example: https://platform.simptellabs.com/login
+          description: (Required) The URI to redirect user after authorization is granted or denied.
+          example: 'https://platform.simptellabs.com/login'
         - name: scope
           in: query
           schema:
             type: string
-          description: >-
-            Specifies the scope of access request, might include multiple
-            space-separated values.
+          description: 'Specifies the scope of access request, might include multiple space-separated values.'
           example: openid profile email
         - name: state
           in: query
           schema:
             type: string
-          description: >-
-            Value used by the client to maintain state between the request and
-            callback. Prevents cross-site request forgery.
+          description: Value used by the client to maintain state between the request and callback. Prevents cross-site request forgery.
           example: <string>
         - name: code_challenge
           in: query
@@ -382,9 +365,7 @@ paths:
           in: query
           schema:
             type: string
-          description: >-
-            (Required) Method used to derive the code challenge, either 'plain'
-            or 'S256'.
+          description: '(Required) Method used to derive the code challenge, either ''plain'' or ''S256''.'
           example: S256
       responses:
         '302':
@@ -422,15 +403,15 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: 8nlry3sihv4fs
   /oauth2/token/introspect:
     post:
       tags:
         - oauth2 > token > introspect
       summary: Token Introspection Endpoint
-      description: >
-        Provides a method to introspect an OAuth 2.0 token (RFC 7662), to verify
-        its active state and retrieve associated metadata.
-
+      description: |
+        Provides a method to introspect an OAuth 2.0 token (RFC 7662), to verify its active state and retrieve associated metadata.
         Conforms to OAuth 2.1 guidelines.
       requestBody:
         content:
@@ -443,9 +424,7 @@ paths:
                   example: <string>
                 tokenTypeHint:
                   type: string
-                  description: >-
-                    Hint about the type of the token submitted for
-                    introspection.
+                  description: Hint about the type of the token submitted for introspection.
                   example: access_token
       security:
         - oauth2Auth: []
@@ -502,14 +481,15 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: v4ysppehwknz1
   /oauth2/token/revoke:
     post:
       tags:
         - oauth2 > token > revoke
       summary: Token Revocation Endpoint
-      description: >
-        Provides a method to revoke an OAuth 2.0 token (RFC 7009), making the
-        token invalid. Conforms to OAuth 2.1 guidelines.
+      description: |
+        Provides a method to revoke an OAuth 2.0 token (RFC 7009), making the token invalid. Conforms to OAuth 2.1 guidelines.
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -521,9 +501,7 @@ paths:
                   example: <string>
                 tokenTypeHint:
                   type: string
-                  description: >-
-                    Hint about the type of the token submitted for
-                    introspection.
+                  description: Hint about the type of the token submitted for introspection.
                   example: access_token
       security:
         - oauth2Auth: []
@@ -562,27 +540,19 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: 87umipfprnxuz
   /oauth2/token:
     post:
       tags:
         - oauth2 > token
       summary: Exchange grant for Access Token
-      description: >
-        This operation exchanges an authorization grant (e.g., authorization
-        code, refresh token, client credentials)
-
-        for an access token and, optionally, a refresh token. This endpoint
-        adheres to the OAuth 2.1 specification,
-
-        and supports multiple methods for client authentication including
-        "client_secret_post" and "client_secret_basic".
-
-        Depending on the method used, the client provides authentication details
-        either in the request body
-
-        (for "client_secret_post") or in the "Authorization" header (for
-        "client_secret_basic"). For more extensive information,
-
+      description: |
+        This operation exchanges an authorization grant (e.g., authorization code, refresh token, client credentials)
+        for an access token and, optionally, a refresh token. This endpoint adheres to the OAuth 2.1 specification,
+        and supports multiple methods for client authentication including "client_secret_post" and "client_secret_basic".
+        Depending on the method used, the client provides authentication details either in the request body
+        (for "client_secret_post") or in the "Authorization" header (for "client_secret_basic"). For more extensive information,
         visit: https://oauth.net/code/
       requestBody:
         content:
@@ -661,15 +631,14 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: qam2pihincmug
   /oauth2/.well-known/openid-configuration:
     get:
       tags:
         - oauth2 > .well-known > openid-configuration
       summary: The OAuth 2.0 Token Endpoint
-      description: >-
-        Use open source libraries to perform OAuth 2.0 and OpenID Connect
-        available for any programming language. You can find a list of libraries
-        at https://oauth.net/code/
+      description: 'Use open source libraries to perform OAuth 2.0 and OpenID Connect available for any programming language. You can find a list of libraries at https://oauth.net/code/'
       responses:
         '200':
           description: OK
@@ -699,14 +668,14 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: 62x5f5fsfj5s9
   /oauth2/jwks:
     get:
       tags:
         - oauth2 > jwks
       summary: Get JWKS
-      description: >-
-        This endpoint returns the JSON Web Key Set (JWKS), which can be used to
-        verify the JWTs issued by the authorization server.
+      description: 'This endpoint returns the JSON Web Key Set (JWKS), which can be used to verify the JWTs issued by the authorization server.'
       parameters:
         - name: Accept
           in: header
@@ -739,15 +708,15 @@ paths:
                     alg: <string>
                     'n': <string>
                     e: <string>
+      x-stoplight:
+        id: ydyus3piyjti4
   /registration/callback:
     post:
       tags:
         - registration > callback
       summary: Verifies the OTP for registration and returns an access token.
-      description: >
-        This endpoint is used for the verification of the One-Time Password
-        (OTP) during user registration. Upon successful verification, the user
-        is provided with an access token.
+      description: |
+        This endpoint is used for the verification of the One-Time Password (OTP) during user registration. Upon successful verification, the user is provided with an access token.
       requestBody:
         content:
           application/json:
@@ -771,9 +740,7 @@ paths:
           in: query
           schema:
             type: integer
-          description: >-
-            (Required) The unique identifier of the IAM application initiating
-            the registration process.
+          description: (Required) The unique identifier of the IAM application initiating the registration process.
           example: '000000000000000000000000'
       responses:
         '200':
@@ -814,6 +781,8 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: d8ig2e5gwwc1e
   /sessions/session/refresh:
     get:
       tags:
@@ -923,6 +892,8 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: kut7g8czqta5z
   /sessions/session/extend:
     get:
       tags:
@@ -952,10 +923,12 @@ paths:
               schema:
                 type: string
               example: ''
-  /sessions/session/{id}:
+      x-stoplight:
+        id: nw33dsyoueukh
+  '/sessions/session/{id}':
     delete:
       tags:
-        - sessions > session > {id}
+        - 'sessions > session > {id}'
       summary: Close session by id
       security:
         - oauth2Auth: []
@@ -988,9 +961,11 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: po1mx0euv4t8p
     get:
       tags:
-        - sessions > session > {id}
+        - 'sessions > session > {id}'
       summary: Get session by id
       security:
         - oauth2Auth: []
@@ -1105,6 +1080,8 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: 0fhkrmn7huzi1
   /sessions/session:
     get:
       tags:
@@ -1219,6 +1196,8 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: jc3j8zzuih9en
     delete:
       tags:
         - sessions > session
@@ -1247,6 +1226,8 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: oklf7kd9azavi
   /sessions/bucket:
     put:
       tags:
@@ -1371,6 +1352,8 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: q59tm5l7yo0wa
   /sessions:
     get:
       tags:
@@ -1489,3 +1472,5 @@ paths:
               schema:
                 type: string
               example: ''
+      x-stoplight:
+        id: vyxz32ibjowrg
