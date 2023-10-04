@@ -1,7 +1,3 @@
----
-stoplight-id: zj2olh891xumk
----
-
-# overview
+# Overview
 
 The beginning of an awesome article...

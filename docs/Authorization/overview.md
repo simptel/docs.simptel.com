@@ -1,7 +1,3 @@
----
-stoplight-id: awhyo2uw1vefm
----
-
-# overview
+# Overview
 
 The beginning of an awesome article...
