@@ -1,7 +1,3 @@
----
-stoplight-id: ptt47waai27jl
----
-
-# overview
+# Overview
 
 The beginning of an awesome article...
