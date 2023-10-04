@@ -1,5 +1,7 @@
 # Ignore all files
 *
 
-# Except for Markdown files
+# Except
 !*.md
+!LICENSE
+!.gitignore
