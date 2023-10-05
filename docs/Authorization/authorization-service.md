@@ -3,10 +3,6 @@ Simptel Authorization Server
 
 REST API of the Simptel Authorization Server
 
-More information: [https://helloreverb.com](https://helloreverb.com)
-
-Contact Info: [hello@helloreverb.com](hello@helloreverb.com)
-
 Version: 1.0.0
 
 All rights reserved
