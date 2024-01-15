@@ -12,7 +12,7 @@ A visitor refers to an anonymous user whose interactions are systematically trac
 ### Identity 
 An identity refers to a registered user with an account that can be identified within the system.
 
-## Identity Lifecycle Phases
+## Identity Lifecycle
 
 ### Onboarding Identity
 An onboarding identity refers to a user actively completing their profile and undergoing the identity verification process to validate their information.
