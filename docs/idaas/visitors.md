@@ -16,7 +16,7 @@ Visitor management refers to a suite of features within the identity hub, active
 - Visitor data management
 - Visitor consent management
 
-Visitor behavior is tracked and stored in sessions
+Visitor behavior is tracked and stored in sessions.
 
 
 
