@@ -1,19 +1,19 @@
-# Visitors
+### Introduction to Visitors
 
-The visitor concept was designed with the primary objective of obtaining user consents, prioritizing privacy, and ensuring strict compliance with data protection regulations. Additionally, it includes various features that ensure a complete and safe user experience:
+The concept of "Visitors" is central to our commitment towards user consent, privacy, and robust adherence to data protection regulations. Its design is primarily aimed at boosting the user experience by ensuring compliance, security, and the protection of user identities.
 
-- Visitor tracking 
-- Fraud prevention 
-- Spam protection 
-- Account takeover measures
-- Enhanced Authentication
-- Bot detection
+- Visitor Tracking
+- Visitor Consents
+- Visitor Anonymity 
 
 # Visitors Management
 
-Visitor management refers to a suite of features within the identity hub, actively overseeing visitor activities. This includes effective consent management and the preservation of visitor data. Specific aspects covered by visitor management include:
+Our Identity Hub incorporates the visitor management suite with a comprehensive array of features to oversee visitor activities and consents while upholding data anonymization. It also provides detailed information about the sessions to which visitors are associated.
 
-- Visitor data management
-- Visitor consent management
+- Visitor Consent Management
+- Visitor Session Management
 
-Visitor behavior is tracked and stored in sessions.
+The system consistently tracks and logs visitor behavior during sessions, ensuring a secure, personalized, and compliant user experience. Consents are garnered through public clients via API calls originating from various domains, all of which are automatically identified and processed by our system.
+
+By persistently tracking and logging visitor behavior across sessions, we ensure not only a secure and compliant user experience, but also one that is personalized and engaging.
+

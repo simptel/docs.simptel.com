@@ -1,11 +1,12 @@
-# Identity as a Service (IDaaS)
+# Identity Hub Overview
 
-Explore the functionality of our Identity as a Service (IDaaS), a modern cloud-based solution with two essential components:
-
-- **Selfservice portal (SSP)**
-- **Hub**
-
-The Hub, acting as a centralized management interface, seamlessly integrates with the user-friendly Selfservice portal. This versatile solution can be deployed out of the box and tailored to specific needs through customization using our API.
+Simptel's Identity as a Service (IDaaS) is a powerful and flexible solution that seamlessly integrates two core components:
+  
+- **Self-Service Portal (SSP):** 
+  
+- **Identity Hub:** 
+  
+The Identity Hub serves as the centralized administrative interface that  coordenates all identity policies and access controls on our platform.  and intricately merges with the SSP.  And the self service portal is where your end users engage. This solution delivers out-of-the-box capabilities while enabling bespoke adaptations through our API, matching your specific application needs.
 
 ## Standards and Future Plans
 
