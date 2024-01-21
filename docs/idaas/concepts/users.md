@@ -23,7 +23,7 @@ A verified identity signifies a user who has successfully completed the onboardi
 ### Offboarding Identity
 An offboarding identity indicates a user scheduled for deletion and removal from the system in accordance with established lifecycle management policies.
 
-## Priviliged Identity Management (PIM)
+## Privileged Identity Management (PIM)
 
 ### Privileged Identity
 A privileged identity denotes a user who has been granted access to protected resources after completing the authorization process.
