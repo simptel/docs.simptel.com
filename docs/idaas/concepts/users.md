@@ -26,4 +26,4 @@ An offboarding identity indicates a user scheduled for deletion and removal from
 ## Privileged Identity Management (PIM)
 
 ### Privileged Identity
-A privileged identity denotes a user who has been granted access to protected resources after completing the authorization process.
+A privileged identity denotes a user who has been granted access to protected resources after completing the authorization process. This includes users authorized to access privileged information and perform critical functions within our system.
