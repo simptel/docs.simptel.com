@@ -20,6 +20,5 @@ Clients are authenticated through reliable and robust methods designed for secur
 2. **Mutual TLS with x.509 Certificate:** OAuth client authentication and certificate-bound access and refresh tokens using mutual Transport Layer Security (TLS) authentication with X.509 certificates. This mechanism provides a secure method for client authentication and binding access tokens to a client's mutual-TLS certificate. For more details, refer to [OAuth 2.0 RFC 8705](https://datatracker.ietf.org/doc/html/rfc8705).
 
 
-The inclusion of mutual TLS client authentication and certificate-bound access tokens based on X.509 certificates provides an additional layer of security and authentication for clients interacting with the platform.
+These authentication methods, including mutual TLS with x.509 certificate, ensure a balanced approach to security, accessibility, and convenience for both users and clients within our platform.
 
-This curated selection of authentication methods ensures a balanced approach to security, accessibility, and convenience for both users and clients within our platform.
