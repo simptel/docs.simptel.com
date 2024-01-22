@@ -17,7 +17,11 @@ In our platform, we offer various access control models, each providing differen
 
 ### Role-based Access Control (RBAC)
 
-Role-based Access Control (RBAC) is a robust access control model that restricts access to authorized users based on predefined roles. RBAC defines access permissions to resources based on user roles, rather than individual attributes. Each role is associated with a set of permissions that determine the actions a user with that role is allowed to perform.
+**Assignment:**
+- Entities: Users or clients
+- Assignment: Predefined roles
+
+Role-based Access Control (RBAC) is a robust access control model that limits access to authorized users or clients based on pre-defined roles. RBAC determines access permissions to resources based on user roles, rather than individual attributes. Each role is associated with a set of permissions that govern the actions a user with that role is authorized to perform.
 
 ```javascript
 // RBAC Example
@@ -29,11 +33,16 @@ if (role === "manager") {
 ```
 
 ### Attribute-based Access Control (ABAC)
-Attribute-based Access Control (ABAC) is a granular access control mechanism that enables fine-grained control over resource access based on the attributes associated with users or clients. ABAC protects resources at a granular level by considering specific attributes such as `roles`, `permissions`, `deparments`, `office hours`, and `locations`. This approach enables precise access controls based on specific user attributes, ensuring strong data security and compliance with best practices.
 
-**ABAC Example:**
+Assignment:
+
+- Entities: Users or clients
+- Assignment: Attributes such as roles, permissions, departments, office hours, and locations
+
+Attribute-based Access Control (ABAC) is a granular access control mechanism that enables fine-grained control over resource access based on the attributes associated with users or clients. ABAC safeguards resources at a granular level, considering specific attributes such as `roles`, `permissions`, `departments`, `office hours`, and `locations`. This approach facilitates precise access controls based on specific user attributes, ensuring robust data security and compliance with best practices.
+
 ```javascript
-// ABAC Example
+// ABAC Example 
 if (
     attributes.includes("role:manager") &&
     attributes.includes("permission:read:document") &&
@@ -44,23 +53,26 @@ if (
 } else {
     // Deny access
 }
-
 ```
 
 ### Access Control Lists (ACLs)
 
-Access Control Lists (ACLs) are a mechanism for specifying which users or groups of users are granted access to specific resources and what operations they are allowed to perform on those resources. ACLs detail exactly what operations are permitted and denied for specific users or groups, providing fine-grained control over resource access.
+- Entities: Users or clients
+- Assignment: Specific resources and allowed operations
 
-
-**ACL Examples:**
+Access Control Lists (ACLs) are a mechanism for defining which users or groups of users are granted access to specific resources and the operations they are permitted to perform on those resources. ACLs offer fine-grained control over resource access by specifying detailed permissions and denials for specific users or groups.
 
 ```javascript
-
-// ACL Example 2
-if (user === "john" && permission === "read" && document === "campaign_strategy.docx") {
-    // Allow access to the sensitive document
+// ACL Example 
+if (document === "example.docx" && user === "John" && permission === "read") {
+    // Allow access to read the document
 } else {
     // Deny access
 }
-
 ```
+
+In summary:
+
+- RBAC focuses on predefined roles for user access control.
+- ABAC utilizes specific attributes for granular control over resource access.
+- ACLs specify resource access and operations for individual users or groups.
