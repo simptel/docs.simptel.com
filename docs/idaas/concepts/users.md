@@ -1,29 +1,28 @@
 # Overview
-This guide provides an overview of the different stages a user experiences when interacting with our services.
+This guide presents different stages that individuals experience when engaging with our services.
 
 ## User Categories
 
 ### User
-A user is an individual who interacts with a system, application, or platform.
+Represents an individual who interacts with a system, application, or platform.
 
 ### Visitor
-A visitor represents an anonymous user whose interactions are systematically tracked.
+Represents an anonymous user.
 
 ### Identity 
-An identity refers to a registered user with an account that can be identified within the system.
+Represents a registered user with a profile and identifiable credentials.
 
-## Identity Lifecycle
+## Identity Lifecycle Management
 
 ### Onboarding Identity
-An onboarding identity denotes a user actively completing their profile and undergoing the identity verification process to validate their information.
+Denotes a user actively completing their profile and undergoing the identity verification process to validate their information, in line with the established identity lifecycle management policies for onboarding.
 
 ### Verified Identity
-A verified identity signifies a user who has successfully completed the onboarding process and validated their profile through identity verification management policies.
-
-### Offboarding Identity
-An offboarding identity indicates a user scheduled for deletion and removal from the system in accordance with established lifecycle management policies.
-
-## Privileged Identity Management (PIM)
+Denotes a user who has successfully completed the onboarding process and validated their profile, adhering to the established identity lifecycle management policies for identity verification.
 
 ### Privileged Identity
-A privileged identity denotes a user who has been granted access to protected resources after completing the authorization process. This includes users authorized to access privileged information and perform critical functions within our system.
+Denotes a user authorized to access protected resources after completing the authorization process, in line with the established privileged identity management (PIM) policies.
+
+### Offboarding Identity
+Denotes a user scheduled for deletion and removal from the system, following the established identity lifecycle management policies for offboarding.
+
