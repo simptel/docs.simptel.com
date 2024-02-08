@@ -1,10 +1,16 @@
-# Clients and Identity Hub Overview
+# Overview
+This guide outlines how applications interact with our services.
 
-Clients are at the core of any authorization infrastructure. In the context of web applications, a "client" is an entity that interacts with the server, by sending requests which the server processes and then returns a response. This interaction can happen through various interfaces and methodologies such as web browsers, mobile applications, and APIs.
+## Client Categories
 
-In our platform, these clients interact with the "Identity Hub", a service that is responsible for managing these software applications. The Identity Hub registers new clients, issues and renews client credentials, and orchestrates OAuth workflows, all while ensuring the security and integrity of client interactions.
+### Client
+Represents an application that interacts with other applications or services, regardless of whether the application runs on a server, PC, or other device.
 
-When a client application is registered with our Identity Hub, it's assigned a unique identifier - the client ID. This ID is used to authenticate the client application to the server, ensuring only authenticated clients can access user resources.
+For more details, refer to the [OAuth 2.0 RFC 6749 Section 1.1](https://datatracker.ietf.org/doc/html/rfc6749#section-1.1).
+
+
+### 
+
 
 ## Types of Clients within OAuth
 
@@ -22,20 +28,3 @@ On the other hand, public clients are unable to maintain the confidentiality of 
 
 - Authorization Code Flow with PKCE
 
-## Adherence to OAuth 2.1
-Our Identity Hub is designed in adherence with the principles of OAuth 2.0 and is future-ready for OAuth 2.1.
-
-For both confidential and public clients, we follow the two primary flows outlined in OAuth 2.1 (and commonly used in OAuth 2.0), namely the Client Credentials flow and the Authorization Code flow with PKCE.
-
-By avoiding the Implicit Flow and the Resource Owner Password Credentials Flow, which are not advised due to known security vulnerabilities, we ensure that our Identity Hub remains in compliance with the most secure versions of the OAuth specifications.
-
-## Common Concerns:
-
-1. **Securing Client Credentials:**  
-    Client credentials include the client ID and any other key credential and these need to be kept securely to mitigate unauthorized access.
-	
-2. **Action Steps for Compromised Credentials:**  
-    In the event of compromised credentials, immediate action towards revocation and incident response, followed by adherence to the set incident management procedures is recommended.
-	
-3. **Protection of Client Application and User Information:** 
-    The inclusion of both the Client Credentials flow and the Authorization Code flow with PKCE in the Identity Hub offers a protective layer for client-side authentication and interaction with the user's resources. This layer of security is beneficial for client applications and their users. 

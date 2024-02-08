@@ -1,9 +1,11 @@
 # Introduction to Visitors
 
-The concept of "Visitors" is central to our commitment towards user consent, privacy, and robust adherence to data protection regulations. It is designed to boost the user experience by ensuring compliance, security, and the protection of users.
+Anonymous users who interact with the services are considered Visitors. The concept of "Visitors" is central to our commitment to prioritize user consent, privacy, and robust adherence to data protection regulations. We track visitor interactions and store them in visitor initiated sessions. During these sessions Visitors are able to provide consents for utilizing the configured platform.
 
-- **Visitor Tracking**
-- **Visitor Consents**
+
+
+- **Visitor Interaction Tracking through sessions**
+- **Visitor Consent Management**
 - **Visitor Anonymity**
 
 ## Visitor Consents
