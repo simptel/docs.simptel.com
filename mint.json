@@ -11,7 +11,7 @@
       "group": "Getting Started",
       "pages": [
         "README",
-        "overview"
+        "docs/idaas/overview"
       ]
     }
   ],
