@@ -1,39 +1,36 @@
 {
-  "name": "Documentation",
-  "favicon": "/favicon.svg",
-  "colors": {
-    "primary": "#4fe6ff",
-    "light": "#4fe6ff",
-    "dark": "#4fe6ff"
-  },
-  "navigation": [
-    {
-      "group": "Concepts",
-      "pages": [
-        "docs/idaas/overview",
-        "docs/idaas/concepts/access-control",
-        "docs/idaas/concepts/authorization",
-        "docs/idaas/concepts/authentication",
-        "docs/idaas/concepts/sessions"
-
-
-
-      ]
+    "name": "Documentation",
+    "favicon": "/favicon.svg",
+    "colors": {
+        "primary": "#4fe6ff",
+        "light": "#4fe6ff",
+        "dark": "#4fe6ff"
     },
-    {
-      "group": "Functional description",
-      "pages": [
-        "README",
-        "docs/idaas/overview"
-      ]
+    "navigation": [
+        {
+            "group": "Concepts",
+            "pages": [
+                "docs/idaas/overview",
+                "docs/idaas/concepts/access-control",
+                "docs/idaas/concepts/authorization",
+                "docs/idaas/concepts/authentication",
+                "docs/idaas/concepts/sessions"
+            ]
+        },
+        {
+            "group": "Functional description",
+            "pages": [
+                "README",
+                "docs/idaas/overview"
+            ]
+        }
+    ],
+    "openapi": "https://test-authentication-service.bluewave-3e4a0405.westeurope.azurecontainerapps.io/openapi.json",
+    "topbarCtaButton": {
+        "name": "Get Started",
+        "url": "https://simptel.com/home"
+    },
+    "footerSocials": {
+        "github": "https://github.com/simptel"
     }
-  ],
-  "openapi": "https://test-authentication-service.bluewave-3e4a0405.westeurope.azurecontainerapps.io/openapi.json",
-  "topbarCtaButton": {
-    "name": "Get Started",
-    "url": "https://simptel.com/home"
-  },
-  "footerSocials": {
-    "github": "https://github.com/simptel"
-  }
 }
