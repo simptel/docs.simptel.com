@@ -19,26 +19,11 @@
   "topbarCtaButton": {
     "name": "Get Started",
     "url": "https://1tc7vihvbit.typeform.com/to/pZJ31XZB"
-  },
-  "anchors": [
-    {
-      "name": "API Components",
-      "icon": "rectangle-terminal",
-      "color": "#f59f0b",
-      "url": "api-components"
-    },
-    {
-      "name": "Community",
-      "icon": "comments",
-      "color": "#2564eb",
-      "url": "https://discord.gg/MPNgtSZkgK"
-    }
-  ],
-  
+  },  
   "footerSocials": {
     "github": "https://github.com/mintlify",
     "discord": "https://discord.gg/MPNgtSZkgK",
     "twitter": "https://twitter.com/mintlify"
   }
-}
+
 }
