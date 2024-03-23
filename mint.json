@@ -12,7 +12,10 @@
       "pages": [
         "docs/idaas/overview",
         "docs/idaas/access-control",
-        "docs/idaas/authorization"
+        "docs/idaas/authorization",
+        "docs/idaas/authentication",
+        "docs/idaas/sessions"
+
 
 
       ]
