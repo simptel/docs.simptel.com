@@ -37,7 +37,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart"]
+      "pages": ["README", "quickstart"]
     },
     {
       "group": "API Components",
