@@ -18,6 +18,7 @@
       ]
     }
   ],
+  "openapi":["https://test-authentication-service.bluewave-3e4a0405.westeurope.azurecontainerapps.io/openapi.json"],
   "topbarCtaButton": {
     "name": "Get Started",
     "url": "https://simptel.com/home"
