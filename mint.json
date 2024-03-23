@@ -8,7 +8,7 @@
   "colors": {
     "primary": "#174572",
     "light": "#4ADE80",
-    "dark": "#166534"
+    "dark": "#174572"
   },
   "topbarLinks": [
     {
@@ -29,6 +29,8 @@
     "url": "https://1tc7vihvbit.typeform.com/to/pZJ31XZB"
   },
   "footerSocials": {
-    "github": "https://github.com/simptel"
+    "github": "https://github.com/mintlify",
+    "discord": "https://discord.gg/MPNgtSZkgK",
+    "twitter": "https://twitter.com/mintlify"
   }
 }
