@@ -11,10 +11,10 @@
       "group": "Concepts",
       "pages": [
         "docs/idaas/overview",
-        "docs/idaas/access-control",
-        "docs/idaas/authorization",
-        "docs/idaas/authentication",
-        "docs/idaas/sessions"
+        "docs/idaas/concepts/access-control",
+        "docs/idaas/concepts/authorization",
+        "docs/idaas/concepts/authentication",
+        "docs/idaas/concepts/sessions"
 
 
 
