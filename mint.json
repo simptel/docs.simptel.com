@@ -16,6 +16,12 @@
       "url": "mailto:support@mintlify.com"
     }
   ],
+"navigation": [
+    {
+        "group": "Getting Started",
+        "pages": ["README"]
+    }
+],
   "topbarCtaButton": {
     "name": "Get Started",
     "url": "https://1tc7vihvbit.typeform.com/to/pZJ31XZB"
