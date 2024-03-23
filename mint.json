@@ -10,12 +10,6 @@
     "light": "#174572",
     "dark": "#174572"
   },
-  "topbarLinks": [
-    {
-      "name": "Contact Us",
-      "url": "mailto:support@mintlify.com"
-    }
-  ],
   "navigation": [
     {
       "group": "Getting Started",
