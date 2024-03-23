@@ -19,7 +19,7 @@
 "navigation": [
     {
         "group": "Getting Started",
-        "pages": ["README"]
+        "pages": ["readme"]
     }
 ],
   "topbarCtaButton": {
