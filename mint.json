@@ -2,9 +2,9 @@
   "name": "Documentation",
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#174572",
+    "primary": "#4fe6ff",
     "light": "#174572",
-    "dark": "#174572"
+    "dark": "#4fe6ff"
   },
   "navigation": [
     {
