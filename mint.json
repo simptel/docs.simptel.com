@@ -34,31 +34,11 @@
       "url": "https://discord.gg/MPNgtSZkgK"
     }
   ],
-  "navigation": [
-    {
-      "group": "Getting Started",
-      "pages": ["README", "quickstart"]
-    },
-    {
-      "group": "API Components",
-      "pages": ["api-playground/overview", "api-playground/configuration"]
-    },
-    {
-      "group": "Settings",
-      "pages": ["settings/global", "settings/page"]
-    },
-    {
-      "group": "Analytics",
-      "pages": ["analytics/posthog"]
-    }
-  ],
+  
   "footerSocials": {
     "github": "https://github.com/mintlify",
     "discord": "https://discord.gg/MPNgtSZkgK",
     "twitter": "https://twitter.com/mintlify"
-  },
-  "integrations": {
-    "intercom": "abcdefz",
-    "frontchat": "abcdez"
   }
+}
 }
