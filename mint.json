@@ -10,7 +10,8 @@
     {
       "group": "Getting Started",
       "pages": [
-        "README"
+        "README",
+        "overview"
       ]
     }
   ],
