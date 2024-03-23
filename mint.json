@@ -7,7 +7,7 @@
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#174572",
-    "light": "#4ADE80",
+    "light": "#174572",
     "dark": "#174572"
   },
   "topbarLinks": [
