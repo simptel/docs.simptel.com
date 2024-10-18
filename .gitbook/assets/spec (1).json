@@ -1,0 +1,766 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "securitySchemes": {
+      "Users": {
+        "type": "oauth2",
+        "description": "OAuth 2 with the authorization code flow.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://api.simptellabs.com/oauth2/authorize",
+            "tokenUrl": "https://api.simptellabs.com/oauth2/token",
+            "refreshUrl": "https://api.simptellabs.com/oauth2/token",
+            "scopes": {
+              "offline_access": "Generate a refresh token.",
+              "profile": "Access user profile details.",
+              "openid": "Access user profile details."
+            }
+          }
+        }
+      },
+      "Clients": {
+        "type": "oauth2",
+        "description": "OAuth 2 with the authorization code flow.",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://api.simptellabs.com/oauth2/token",
+            "scopes": {
+              "resource-read": "Read access to the resource.",
+              "resource-write": "Write access to the resource.",
+              "introspect-token": "Introspect an OAuth2 token."
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "responseType": {
+        "in": "query",
+        "name": "response_type",
+        "description": "Specifies the type of response required, must be set to 'code' as per OAuth 2.1 protocol.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "code"
+        }
+      },
+      "clientId": {
+        "in": "query",
+        "name": "client_id",
+        "description": "Unique identifier of the client application seeking access.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "000000000000000000000000"
+        }
+      },
+      "redirectUri": {
+        "in": "query",
+        "name": "redirect_uri",
+        "description": "The URI to redirect user after authorization is granted or denied.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uri",
+          "default": "https://platform.simptellabs.com/login"
+        }
+      },
+      "scope": {
+        "in": "query",
+        "name": "scope",
+        "description": "Specifies the scope of access request, might include multiple space-separated values.",
+        "schema": {
+          "type": "string",
+          "default": "openid profile email"
+        }
+      },
+      "state": {
+        "in": "query",
+        "name": "state",
+        "description": "Value used by the client to maintain state between the request and callback. Prevents cross-site request forgery.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "codeChallenge": {
+        "in": "query",
+        "name": "code_challenge",
+        "description": "Challenge derived from the code verifier for PKCE.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "openid profile email"
+        }
+      },
+      "codeChallengeMethod": {
+        "in": "query",
+        "name": "code_challenge_method",
+        "description": "Method used to derive the code challenge, either 'plain' or 'S256'.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "S256"
+        }
+      }
+    },
+    "schemas": {
+      "TokenPayload": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token being sent."
+          },
+          "tokenTypeHint": {
+            "type": "string",
+            "description": "Hint about the type of the token submitted for introspection.",
+            "enum": [
+              "access_token",
+              "refresh_token"
+            ]
+          }
+        },
+        "required": [
+          "token"
+        ]
+      },
+      "ClientSecretPost": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "description": "Client's unique identifier."
+          },
+          "clientSecret": {
+            "type": "string",
+            "description": "Secret key of the client.",
+            "default": "7ed778dfea12ba79db1a99d5ea22da05928a719edb003451a018dbe8a16337bbee92f3d690bf71ed2883b6368b46ae823455462445c04d0276d3c0d5a2278322"
+          }
+        }
+      },
+      "AuthorizationCodeGrantType": {
+        "type": "object",
+        "properties": {
+          "grantType": {
+            "type": "string",
+            "enum": [
+              "authorization_code"
+            ],
+            "description": "Type of authorization grant."
+          },
+          "code": {
+            "type": "string",
+            "description": "Authorization code from the authorization endpoint."
+          },
+          "redirectUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "Redirection URI to redirect user-agent once access is granted or denied."
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Client identifier as per RFC 6749 Section 2.2."
+          },
+          "codeVerifier": {
+            "type": "string",
+            "description": "Code verifier for PKCE as per RFC 7636."
+          }
+        },
+        "required": [
+          "grantType",
+          "code",
+          "redirectUri",
+          "clientId",
+          "codeVerifier"
+        ]
+      },
+      "RefreshTokenGrantType": {
+        "type": "object",
+        "properties": {
+          "grantType": {
+            "type": "string",
+            "enum": [
+              "refresh_token"
+            ],
+            "description": "Type of grant being refreshed."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token previously issued to the client."
+          },
+          "scope": {
+            "type": "string",
+            "description": "Scope of the access request as per Section 3.3."
+          }
+        },
+        "required": [
+          "grantType",
+          "refreshToken"
+        ]
+      },
+      "ClientCredentialsGrantType": {
+        "type": "object",
+        "properties": {
+          "grantType": {
+            "type": "string",
+            "enum": [
+              "client_credentials"
+            ],
+            "description": "Type of client credential grant."
+          },
+          "scope": {
+            "type": "string",
+            "description": "Scope of the access request as per Section 3.3."
+          }
+        },
+        "required": [
+          "grantType",
+          "scope"
+        ]
+      },
+      "TokenResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Access token issued by the authorization server."
+          },
+          "tokenType": {
+            "type": "string",
+            "description": "Type of token issued, usually \"Bearer\"."
+          },
+          "expiresIn": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Lifetime in seconds of the access token."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token used to obtain new access tokens with same authorization grant.",
+            "nullable": true
+          },
+          "exampleParameter": {
+            "type": "string",
+            "description": "Additional parameters, if any.",
+            "nullable": true
+          }
+        }
+      },
+      "JsonWebKeySet": {
+        "type": "object",
+        "properties": {
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JsonWebKey"
+            }
+          }
+        }
+      },
+      "JsonWebKey": {
+        "type": "object",
+        "properties": {
+          "kty": {
+            "type": "string",
+            "description": "The cryptographic algorithm family used with the key, e.g., \"RSA\" or \"EC\"."
+          },
+          "use": {
+            "type": "string",
+            "description": "Intended use of the public key, e.g., \"sig\" (signature) or \"enc\" (encryption)."
+          },
+          "kid": {
+            "type": "string",
+            "description": "Key ID of the key pair."
+          },
+          "alg": {
+            "type": "string",
+            "description": "Algorithm intended for use with the key."
+          },
+          "n": {
+            "type": "string",
+            "description": "Modulus for RSA public keys."
+          },
+          "e": {
+            "type": "string",
+            "description": "Exponent for RSA public keys."
+          }
+        }
+      },
+      "IOAuth2ServerMetadata": {
+        "type": "object",
+        "properties": {
+          "issuer": {
+            "type": "string"
+          },
+          "authorizationEndpoint": {
+            "type": "string"
+          },
+          "tokenEndpoint": {
+            "type": "string"
+          },
+          "jwksUri": {
+            "type": "string"
+          },
+          "responseTypesSupported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scopesSupported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tokenEndpointAuthMethodsSupported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "claimsSupported": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequestError": {
+        "description": "Bad request error when a request is missing a required parameter, includes an unsupported parameter value or is otherwise malformed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "invalid_request"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "The request is missing a required parameter, includes an unsupported parameter value or is otherwise malformed."
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFoundError": {
+        "description": "Response when the requested user is not found in the system.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "not_found"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "User not found. Contact support if issue persists."
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Response when an unexpected internal server error occurs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "internal_server_error"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "An unexpected error occurred. Please reach out to support."
+                }
+              }
+            }
+          }
+        }
+      },
+      "BearerError": {
+        "description": "Response when an invalid bearer token is provided.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "invalid_token"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "Authorization header must include a Bearer token."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "OAuth 2.1 Endpoints",
+      "description": "Manage user profile.",
+      "externalDocs": {
+        "description": "Explore the detailed documentation",
+        "url": "https://simpledocs.dev/oauth2/authorization"
+      }
+    },
+    {
+      "name": "OAuth2.1 and OpenID Connect",
+      "description": "Manage user credentials.",
+      "externalDocs": {
+        "description": "Explore the detailed documentation",
+        "url": "https://simpledocs.dev/oauth2/authorization"
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "Import or download the OAS3 specification - Click here",
+    "url": "http://api.simptellabs.com/oauth2/openapi.json"
+  },
+  "info": {
+    "title": "Simptel Authorization Service API",
+    "version": "1.0.0",
+    "description": "Welcome to Simptel Authorization API documentation. Our API is designed to provide you with secure and efficient user management across applications and platforms. Feel free to explore, test, and integrate, and let’s forge great user experiences together.",
+    "termsOfService": "https://www.simptel.com/legal/terms-and-conditions",
+    "contact": {
+      "name": "Simptel Support Team",
+      "email": "support@simptel.com"
+    },
+    "license": {
+      "name": "Simptel Proprietary License",
+      "url": "https://www.simptel.com/legal/disclaimer"
+    }
+  },
+  "paths": {
+    "/authorize": {
+      "get": {
+        "tags": [
+          "OAuth 2.1 Endpoints"
+        ],
+        "summary": "Initiates the OAuth 2.1 authorization flow",
+        "operationId": "initiateAuthorization",
+        "description": "This endpoint initiates the OAuth 2.1 authorization flow. It supports various grant types including authorization code and refresh token. The authorization interface is the screen users see when granting applications access to their account. When implementing an OAuth server, you are enabling a developer community to build applications that leverage your platform, allowing applications to access and potentially modify private user content, or act on behalf of users. Because of this, you need to ensure you are empowering your users with as much information as possible to protect their accounts and ensure they are informed as to what applications are doing with their accounts. For more details and libraries supporting OAuth 2.1 and OpenID Connect, visit https://oauth.net/code/",
+        "responses": {
+          "302": {
+            "description": "Successful operation. The user agent is redirected to the provided redirect_uri with the authorization code in the URL parameters."
+          },
+          "400": {
+            "description": "Bad Request - The request could not be understood by the server due to malformed syntax or invalid request parameters."
+          },
+          "401": {
+            "description": "Unauthorized - The request requires user authentication or, if the request included authorization credentials, authorization has been refused for those credentials."
+          },
+          "403": {
+            "description": "Forbidden - The server understood the request, but it refuses to authorize it."
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected condition was encountered and no more specific message is suitable."
+          }
+        }
+      }
+    },
+    "/par": {
+      "post": {
+        "tags": [
+          "OAuth 2.1 Endpoints"
+        ],
+        "summary": "Initiates the Pushed Authorization Request (PAR) flow",
+        "operationId": "initiatePAR",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "response_type": {
+                    "type": "string"
+                  },
+                  "client_id": {
+                    "type": "string"
+                  },
+                  "redirect_uri": {
+                    "type": "string"
+                  },
+                  "scope": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "code_challenge": {
+                    "type": "string"
+                  },
+                  "code_challenge_method": {
+                    "type": "string"
+                  },
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "max_age": {
+                    "type": "integer"
+                  },
+                  "acr_values": {
+                    "type": "string"
+                  },
+                  "claims": {
+                    "type": "string"
+                  },
+                  "login_hint": {
+                    "type": "string"
+                  },
+                  "ui_locales": {
+                    "type": "string"
+                  },
+                  "id_token_hint": {
+                    "type": "string"
+                  },
+                  "nonce": {
+                    "type": "string"
+                  },
+                  "code_verifier": {
+                    "type": "string"
+                  },
+                  "resource": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "response_type",
+                  "client_id",
+                  "redirect_uri",
+                  "scope",
+                  "state",
+                  "code_challenge",
+                  "code_challenge_method"
+                ]
+              }
+            }
+          }
+        },
+        "description": "This endpoint initiates the PAR flow. It allows a client to send an authorization request directly to the authorization server via a POST request, rather than via a user-agent redirect. The server responds with a request URI which the client can then redirect the user-agent to.",
+        "responses": {
+          "201": {
+            "description": "Successful operation. The request URI is returned in the `request_uri` parameter of the response."
+          },
+          "400": {
+            "description": "Bad Request - The request could not be understood by the server due to malformed syntax or invalid request parameters."
+          },
+          "401": {
+            "description": "Unauthorized - The request requires client authentication or, if the request included authorization credentials, authorization has been refused for those credentials."
+          },
+          "403": {
+            "description": "Forbidden - The server understood the request, but it refuses to authorize it."
+          },
+          "500": {
+            "description": "Internal Server Error - An unexpected condition was encountered and no more specific message is suitable."
+          }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "tags": [
+          "OAuth 2.1 Endpoints"
+        ],
+        "summary": "Exchange grant for Access Token",
+        "description": "This operation exchanges an authorization grant (e.g., authorization code, refresh token, client credentials)\nfor an access token and, optionally, a refresh token. This endpoint adheres to the OAuth 2.1 specification,\nand supports multiple methods for client authentication including \"client_secret_post\" and \"client_secret_basic\".\nDepending on the method used, the client provides authentication details either in the request body\n(for \"client_secret_post\") or in the \"Authorization\" header (for \"client_secret_basic\"). For more extensive information,\nvisit: https://oauth.net/code/\n",
+        "responses": {
+          "200": {
+            "description": "A successful response returns the access token and potentially a refresh token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. The request was malformed, missing a required parameter, or including an unsupported parameter value."
+          },
+          "401": {
+            "description": "Unauthorized. The client authentication failed with the authorization server."
+          },
+          "404": {
+            "description": "Not Found. The requested resource was not found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred while processing the request."
+          }
+        }
+      }
+    },
+    "/token/introspect": {
+      "post": {
+        "tags": [
+          "OAuth 2.1 Endpoints"
+        ],
+        "summary": "Token Introspection Endpoint",
+        "description": "Provides a method to introspect an OAuth 2.0 token (RFC 7662), to verify its active state and retrieve associated metadata.\nConforms to OAuth 2.1 guidelines.\n",
+        "security": [
+          {
+            "Clients": [
+              "profile",
+              "users"
+            ]
+          },
+          {
+            "Users": [
+              "profile",
+              "users"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation, token is active and response includes associated metadata.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "active": {
+                      "type": "boolean"
+                    },
+                    "scope": {
+                      "type": "string"
+                    },
+                    "client_id": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "token_type": {
+                      "type": "string"
+                    },
+                    "exp": {
+                      "type": "integer"
+                    },
+                    "iat": {
+                      "type": "integer"
+                    },
+                    "nbf": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. This can occur due to missing or incorrect parameters, or if the server does not support revocation of the provided token type."
+          },
+          "401": {
+            "description": "Unauthorized. Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method."
+          },
+          "500": {
+            "description": "Unexpected server error"
+          }
+        }
+      }
+    },
+    "/token/revoke": {
+      "post": {
+        "tags": [
+          "OAuth 2.1 Endpoints"
+        ],
+        "summary": "Token Revocation Endpoint",
+        "description": "Provides a method to revoke an OAuth 2.0 token (RFC 7009), making the token invalid. Conforms to OAuth 2.1 guidelines.\n",
+        "security": [
+          {
+            "Clients": [
+              "profile",
+              "users"
+            ]
+          },
+          {
+            "Users": [
+              "profile",
+              "users"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful, the token has been revoked."
+          },
+          "400": {
+            "description": "Bad Request. This can occur if required parameters are missing or incorrect, or if the server does not support revocation of the provided token type."
+          },
+          "401": {
+            "description": "Unauthorized. Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method."
+          },
+          "500": {
+            "description": "Unexpected server error."
+          }
+        }
+      }
+    },
+    "/.well-known/openid-configuration": {
+      "get": {
+        "tags": [
+          "OAuth2.1 and OpenID Connect"
+        ],
+        "summary": "Get OpenID Connect Configuration",
+        "description": "Fetch the configuration metadata for OpenID Connect. This helps client applications understand\nhow to interact with our authorization server.\n",
+        "responses": {
+          "200": {
+            "description": "OpenID Connect configuration metadata received."
+          }
+        }
+      }
+    },
+    "/jwks": {
+      "get": {
+        "tags": [
+          "OAuth2.1 and OpenID Connect"
+        ],
+        "summary": "Retrieve JSON Web Key Set (JWKS)",
+        "description": "Retrieve a set of public keys in JWK format that the client application can use to verify the JSON Web Tokens (JWT) issued by the authorization server.",
+        "responses": {
+          "200": {
+            "description": "A JSON object that contains the JSON Web Key Set (JWKS)."
+          }
+        }
+      }
+    }
+  }
+}

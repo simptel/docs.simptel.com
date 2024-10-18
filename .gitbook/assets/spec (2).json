@@ -1,0 +1,827 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "securitySchemes": {
+      "Users": {
+        "type": "oauth2",
+        "description": "OAuth 2 with the authorization code flow.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://api.simptellabs.com/oauth2/authorize",
+            "tokenUrl": "https://api.simptellabs.com/oauth2/token",
+            "refreshUrl": "https://api.simptellabs.com/oauth2/token",
+            "scopes": {
+              "offline_access": "Generate a refresh token.",
+              "profile": "Access user profile details.",
+              "openid": "Access user profile details."
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "UpdateUsernameRequestBody": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 4,
+            "description": "The new username to be set for the user. Should be at least 4 characters long and can be a phonenumber, email or username"
+          },
+          "currentPassword": {
+            "type": "string",
+            "description": "The current password of the user to verify the identity."
+          }
+        },
+        "required": [
+          "username",
+          "currentPassword"
+        ]
+      },
+      "UpdatePasswordRequestBody": {
+        "type": "object",
+        "properties": {
+          "newPassword": {
+            "type": "string",
+            "minLength": 8,
+            "description": "The new password to be set for the user. Should be at least 8 characters long."
+          },
+          "currentPassword": {
+            "type": "string",
+            "description": "The current password of the user to verify the identity."
+          }
+        },
+        "required": [
+          "newPassword",
+          "currentPassword"
+        ]
+      },
+      "UpdatePhoneRequestBody": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 10,
+            "pattern": "^\\+?[1-9]\\d{1,14}$",
+            "description": "The new phone number to be set for the user. Must adhere to E.164 standard, thus should be between 10 and 15 digits long and can optionally start with a '+' sign.\n"
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ]
+      },
+      "UpdatePhoneAndValidateRequest": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 11,
+            "pattern": "^\\+[1-9]\\d{1,15}$",
+            "description": "The new phone number to be set for the user. Must adhere to E.164 standard, starting with a '+' followed by 10 to 15 digits.\n"
+          },
+          "totp": {
+            "type": "string",
+            "maxLength": 6,
+            "minLength": 6,
+            "description": "The Time-based One-Time Password for verifying user identity. Must be exactly 6 digits long.\n"
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "totp"
+        ]
+      },
+      "UpdateEmailRequestBody": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The new email to be set for the user."
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "UpdateEmailAndValidateRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The new email to be set for the user."
+          },
+          "totp": {
+            "type": "string",
+            "maxLength": 6,
+            "minLength": 6,
+            "description": "The Time-based One-Time Password for verifying user identity. Must be exactly 6 digits long.\n"
+          }
+        },
+        "required": [
+          "email",
+          "totp"
+        ]
+      },
+      "UpdateProfileRequestBody": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "The first name of the user."
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The last name of the user."
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            "description": "The gender of the user."
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date",
+            "description": "The birthdate of the user in YYYY-MM-DD format."
+          },
+          "zoneInfo": {
+            "type": "string",
+            "description": "The timezone information of the user."
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale information of the user."
+          },
+          "address": {
+            "$ref": "#/components/schemas/UpdateProfileAddressRequestBody"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ]
+      },
+      "UpdateProfileAddressRequestBody": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country should be provided and in a valid format."
+          }
+        },
+        "required": [
+          "country"
+        ]
+      }
+    },
+    "responses": {
+      "BadRequestError": {
+        "description": "Bad request error when a request is missing a required parameter, includes an unsupported parameter value or is otherwise malformed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "invalid_request"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "The request is missing a required parameter, includes an unsupported parameter value or is otherwise malformed."
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserNotFoundError": {
+        "description": "Response when the requested user is not found in the system.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "not_found"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "User not found. Contact support if issue persists."
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserProfileResponse": {
+        "description": "Response containing detailed user profile information.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "applicationId": {
+                  "type": "string",
+                  "description": "The application ID of the IAM service.",
+                  "example": "6426a7425e667bc918"
+                },
+                "sub": {
+                  "type": "string",
+                  "description": "Subject or user ID.",
+                  "example": "6426a7425e667bc918"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email address of the user.",
+                  "example": "john.doe@gmail.com"
+                },
+                "phoneNumber": {
+                  "type": "string",
+                  "description": "Phone number of the user.",
+                  "example": "+31643883001"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "Username of the user.",
+                  "example": "JohnDoe"
+                },
+                "firstname": {
+                  "type": "string",
+                  "description": "First name of the user.",
+                  "example": "John"
+                },
+                "lastname": {
+                  "type": "string",
+                  "description": "Last name of the user.",
+                  "example": "Doe"
+                },
+                "emailVerified": {
+                  "type": "boolean",
+                  "description": "Status of the user email verification.",
+                  "example": true
+                },
+                "phoneNumberVerified": {
+                  "type": "boolean",
+                  "description": "Status of the user phone number verification.",
+                  "example": true
+                },
+                "active": {
+                  "type": "boolean",
+                  "description": "Status of the user account.",
+                  "example": true
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "Gender of the user.",
+                  "example": "male"
+                },
+                "birthdate": {
+                  "type": "string",
+                  "description": "Birthdate of the user.",
+                  "example": "1990-01-01"
+                },
+                "zoneinfo": {
+                  "type": "string",
+                  "description": "Time zone information of the user.",
+                  "example": "America/Los_Angeles"
+                },
+                "locale": {
+                  "type": "string",
+                  "description": "Locale of the user.",
+                  "example": "en-US"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Account creation timestamp.",
+                  "example": "2023-03-31T09:26:26.842+00:00"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Last update timestamp.",
+                  "example": "2023-03-31T09:26:26.842+00:00"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Response when an unexpected internal server error occurs.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "internal_server_error"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "An unexpected error occurred. Please reach out to support."
+                }
+              }
+            }
+          }
+        }
+      },
+      "BearerError": {
+        "description": "Response when an invalid bearer token is provided.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string",
+                  "example": "invalid_token"
+                },
+                "error_description": {
+                  "type": "string",
+                  "example": "Authorization header must include a Bearer token."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Profile",
+      "description": "Manage user profile.",
+      "externalDocs": {
+        "description": "Explore the detailed documentation",
+        "url": "https://simpledocs.dev/identity/profile"
+      }
+    },
+    {
+      "name": "Credentials",
+      "description": "Manage user credentials.",
+      "externalDocs": {
+        "description": "Explore the detailed documentation",
+        "url": "https://simpledocs.dev/identity/credentials"
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "Import or download the OAS3 specification - Click here",
+    "url": "http://api.simptellabs.com/identity/api-docs.json"
+  },
+  "info": {
+    "title": "Simptel Identity Service API",
+    "version": "1.0.0",
+    "description": "Welcome to Simptel Identity API documentation. Our API is designed to provide you with secure and efficient user management across applications and platforms. Feel free to explore, test, and integrate, and let’s forge great user experiences together.",
+    "termsOfService": "https://www.simptel.com/legal/terms-and-conditions",
+    "contact": {
+      "name": "Simptel Support Team",
+      "email": "support@simptel.com"
+    },
+    "license": {
+      "name": "Simptel Proprietary License",
+      "url": "https://www.simptel.com/legal/disclaimer"
+    }
+  },
+  "paths": {
+    "/profile": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Fetches the profile information for the authenticated user.",
+        "description": "Retrieve detailed information of the authenticated user.",
+        "operationId": "getUserProfile",
+        "security": [
+          {
+            "Users": [
+              "profile"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserProfileResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BearerError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserNotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Updates the profile information for the authenticated user.",
+        "description": "This endpoint facilitates the update of profile information for the authenticated user. Fields such as firstname and lastname can be updated via this endpoint.",
+        "security": [
+          {
+            "Users": [
+              "profile",
+              "users"
+            ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserProfileResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BearerError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserNotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/export": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Exports the profile information for the authenticated user.",
+        "description": "Export profile data of the authenticated user in JSON format.",
+        "operationId": "ExportUserProfile",
+        "security": [
+          {
+            "Users": [
+              "profile"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "description": "The JSON file contains the complete profile data of the authenticated user."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BearerError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserNotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/credentials/username": {
+      "patch": {
+        "tags": [
+          "Credentials"
+        ],
+        "deprecated": false,
+        "summary": "Updates the username for the authenticated user.",
+        "security": [
+          {
+            "Users": [
+              "profile",
+              "users"
+            ]
+          }
+        ],
+        "requestBody": {
+          "description": "Required username to be updated.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUsernameRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserProfileResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BearerError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserNotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/credentials/password": {
+      "patch": {
+        "tags": [
+          "Credentials"
+        ],
+        "deprecated": false,
+        "summary": "Updates the password for the authenticated user.",
+        "description": "This endpoint is used to update the password of the authenticated user. It requires the current password and the new password.",
+        "security": [
+          {
+            "Users": [
+              "profile",
+              "users"
+            ]
+          }
+        ],
+        "requestBody": {
+          "description": "The current and new password to be updated.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password is updated"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BearerError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/UserNotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phonenumber/{phonenumber}": {
+      "get": {
+        "tags": [
+          "Credentials"
+        ],
+        "deprecated": true,
+        "summary": "Initiate the process to change or update the current verified phone number",
+        "description": "This endpoint initiates the process for updating the currently verified phone number associated with the user's profile. The new phone number should be passed in the path.",
+        "security": [
+          {
+            "Users": [
+              "profile",
+              "users"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "phonenumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "+1234567890"
+            },
+            "description": "The new phone number the user wants to update to."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The process for updating the phone number has been initiated successfully."
+          },
+          "400": {
+            "description": "Bad request. The phone number must be provided."
+          },
+          "401": {
+            "description": "Unauthorized. Authorization information is missing or invalid."
+          },
+          "409": {
+            "description": "Conflict. The provided phone number is already associated with another account."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred during the request processing."
+          }
+        }
+      }
+    }
+  }
+}
