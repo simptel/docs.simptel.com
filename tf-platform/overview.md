@@ -27,6 +27,7 @@ graph TD
   C --> F["Your Applications"] 
   D --> F
   E --> F
+  G --> F
 ```
 
 **Control Plane**
