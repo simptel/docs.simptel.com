@@ -36,6 +36,12 @@ The Control Plane is your central hub for setting up & managing product deployme
 \
 &#x20;It provides you with powerful tools to:
 
+* Tenant Management
+* Product Deployment
+*
+* Support
+* Manage your product deployment (
+*
 * **Tenant Management**: Each deployment is organized into distinct tenants, ensuring secure and efficient management tailored to your specific needs.
 * **Operations Management**: The TF Platform Portal is your command center for essential tasks, allowing you to:
   * **User Management**: Easily control user access and permissions, ensuring that the right people have the right access.
