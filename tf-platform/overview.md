@@ -6,7 +6,7 @@ icon: clipboard-question
 
 ### What is TF Platform?
 
-**TF Platform** (short for **The Future Platform**) enables you to quickly set up security infrastructure. This infrastructure includes a suite of powerful APIs and essential tools for managing identity and secrets, authentication, authorization, integrations, audit logging, and user engagement through omnichannel communication.\
+**TF Platform** (short for **The Future Platform**) enables you to quickly set up security infrastructure. This infrastructure includes a suite of essential APIs and tools for managing identity and secrets, authentication, authorization, integrations, audit logging, and user engagement through omnichannel communication.\
 \
 Our goal is to help teams efficiently manage their critical security infrastructure so they can focus on what matters most: **building, scaling, and innovating their products, platforms, and applications**.
 
@@ -18,7 +18,7 @@ The following diagram illustrates the basic workflow of TF Platform:
 
 ```mermaid fullWidth="false"
 graph TD
-  A["TF Platform Portal"] --> B["TF Platform Resources"]
+  A["TF Platform Control Plane"] --> B["Your Tenant"]
   B --> C["Identity & Access"]
   B --> D["Auditing"]
   B --> E["Secrets"]
@@ -32,7 +32,7 @@ graph TD
 
 **Control Plane**
 
-The Control Plane is your central hub for setting up & managing product deployments.\
+The Control Plane is your central hub for setting up & managing product deployments. \
 \
 &#x20;It provides you with powerful tools to:
 
